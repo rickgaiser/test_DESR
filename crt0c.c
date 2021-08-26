@@ -12,6 +12,7 @@
 __attribute__((weak)) void _ps2sdk_args_parse(int argc, char** argv);
 __attribute__((weak)) void _ps2sdk_libc_init();
 __attribute__((weak)) void _ps2sdk_libc_deinit();
+__attribute__((weak)) void _ps2sdk_memory_init();
 __attribute__((weak)) void _init();
 __attribute__((weak)) void _fini();
 int main(int argc, char** argv);
@@ -36,6 +37,11 @@ noreturn void _start()
 
     // writeback data cache
     FlushCache(0);
+
+    // Capability to override 32MiB on DESR/DVR models
+    // NOTE: this call can restart the application
+    if (_ps2sdk_memory_init)
+        _ps2sdk_memory_init();
 
     // call ps2sdk argument parsing (weak)
     if (_ps2sdk_args_parse)

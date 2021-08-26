@@ -31,17 +31,20 @@ int IsDESRMachine(void)
     return 0;
 }
 
-int main()
+void _ps2sdk_memory_init()
 {
-    print_machine_state();
-
-    if (IsDESRMachine() == 1 && GetMemorySize() != 64*MiB) {
+    if (GetMemorySize() == 32*MiB && IsDESRMachine() == 1) {
         // Switch to 64MiB mode
         SetMemoryMode(0);
         _InitTLB();
         // Restart application
         __start();
     }
+}
+
+int main()
+{
+    print_machine_state();
 
     return 0;
 }
