@@ -42,8 +42,12 @@ void _ps2sdk_memory_init()
     }
 }
 
-int main()
+int main(int argc, char** argv)
 {
+    printf("argc = %d\n", argc);
+    for (int i=0; i<argc; i++)
+        printf("argv[%d] = %s\n", i, argv[i]);
+
     print_machine_state();
 
     return 0;

@@ -1,5 +1,7 @@
 EE_BIN = test.elf
-EE_OBJS = crt0.o crt0c.o main.o
+EE_OBJS = crt0.o main.o
+EE_CFLAGS = -fno-builtin
+EE_LDFLAGS = -nostartfiles
 
 all: $(EE_BIN)
 
